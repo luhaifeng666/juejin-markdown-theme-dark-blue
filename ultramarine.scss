@@ -1,0 +1,235 @@
+$monospace-font: Menlo, Monaco, Consolas, 'Courier New', monospace;
+$line-space: 10px;
+$dark-blue: #0fb6d6;
+$light-blue: rgba(15, 182, 214, .1);
+$text-primary-color: $dark-blue;
+$text-normal-color: rgb(93, 94, 107);
+$text-bold-color: #7aa2f7;
+$text-italic-color: #bb9af7;
+$border-primary-color: $dark-blue;
+$link-color: rgba(15, 182, 214, .6);
+$border-graduat-color: linear-gradient(to left, transparent, $dark-blue);
+$divider-bg-color: linear-gradient(to right, transparent, $dark-blue, transparent);
+
+@mixin content($angle: 0, $l: 0, $r: 0, $width: '') {
+  content: '';
+  height: 1px;
+  background: $border-graduat-color;
+  display: block;
+  flex: 1;
+  transform: rotate($angle);
+  margin: 0 $r 0 $l;
+  width: $width;
+}
+
+.markdown-body {
+  word-break: break-word;
+  line-height: 1.5;
+  font-weight: 400;
+  font-size: 14px;
+  overflow-x: hidden;
+  color: $text-normal-color;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    line-height: 1.5;
+    margin-top: 35px;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+  }
+
+  h1 {
+    font-size: 22px;
+    margin-bottom: 5px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $text-primary-color;
+    &::before { @include content(180deg, 0, 10px) }
+    &::after { @include content(0, 10px, 0) }
+  }
+
+  h2, h3, h4, h5, h6 {
+    color: $text-primary-color;
+    &::after { @include content(0, 0, 0, 180px) }
+  }
+
+  h2 {
+    padding-bottom: 12px;
+    font-size: 20px;
+  }
+  h3 {
+    font-size: 18px;
+    padding-bottom: 0;
+  }
+  h4 {
+    font-size: 16px;
+  }
+  h5 {
+    font-size: 14px;
+  }
+  h6 {
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
+  p {
+    line-height: inherit;
+    margin-top: $line-space;
+    margin-bottom: $line-space;
+  }
+
+  img {
+    max-width: 100%;
+  }
+
+  hr {
+    background: $divider-bg-color;
+    height: 1px;
+    border: none;
+    margin-top: 32px;
+    margin-bottom: 32px;
+  }
+
+  code {
+    font-family: $monospace-font;
+    word-break: break-word;
+    border-radius: 2px;
+    overflow-x: auto;
+    background-color: rgba(14, 210, 247, 0.05);
+    color: $text-primary-color;
+    font-size: 0.87em;
+    padding: 0.065em 0.4em;
+  }
+
+  pre {
+    font-family: $monospace-font;
+    overflow: auto;
+    position: relative;
+    line-height: 1.5;
+    > code {
+      font-size: 12px;
+      padding: 15px 12px;
+      margin: 0;
+      word-break: normal;
+      display: block;
+      overflow-x: auto;
+      color: $text-normal-color;
+      background: #f8f8f8;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: $link-color;
+    position: relative;
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      height: 3px;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      background: $border-graduat-color;
+    }
+    &:hover,
+    &:active {
+      color: $dark-blue;
+    }
+    &:hover {
+      background-color: $light-blue;
+    }
+  }
+
+  table {
+    display: inline-block !important;
+    font-size: 12px;
+    width: auto;
+    max-width: 100%;
+    overflow: auto;
+    border: 3px solid $dark-blue;
+    border-collapse: collapse;
+  }
+  thead {
+    background: #f6f6f6;
+    color: $dark-blue;
+    text-align: left;
+  }
+  tr:nth-child(2n) {
+    background-color: $light-blue;
+  }
+  th,
+  td {
+    padding: 12px 7px;
+    line-height: 24px;
+    border: 1px solid $dark-blue;
+  }
+  td {
+    min-width: 120px;
+  }
+
+  blockquote {
+    padding: 1px 23px;
+    margin: 22px 0;
+    border: 3px solid;
+    border-image: $border-graduat-color 3 3;
+    background-color: $light-blue;
+    &::after {
+      display: block;
+      content: '';
+    }
+    & > p {
+      margin: 10px 0;
+    }
+  }
+
+  ol,
+  ul {
+    padding-left: 28px;
+    li {
+      margin-bottom: 0;
+      list-style: inherit;
+      & .task-list-item {
+        list-style: none;
+        ul,
+        ol {
+          margin-top: 0;
+        }
+      }
+    }
+
+    ul,
+    ol {
+      margin-top: 3px;
+    }
+  }
+  ol li {
+    padding-left: 6px;
+  }
+
+  em {
+    color: $text-italic-color;
+  }
+  
+  strong {
+    color: $text-bold-color;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-color: $text-bold-color;
+    background-image: linear-gradient(62deg, $text-bold-color 0%, $text-italic-color 100%);
+  }
+
+  .contains-task-list {
+    padding-left: 0;
+  }
+
+  .task-list-item {
+    list-style: none;
+  }
+}
